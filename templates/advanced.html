@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Advanced search{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-9 col-xs-12 col-head">
+            <span class="h1">Advanced search</span>
+            <div class="row">
+                <div class="col-xs-12 col-data">
+                    <form id="reportForm"  method="POST">
+                        <div class="col-xs-12">
+                            <div class="col-xs-12 form-group col-req">
+                                <span><strong>Field</strong></span>
+                                <select class="form-control" name="field" id="field">
+                                    <option value="word">Buzzword</option>
+                                    <option value="website">Website</option>
+                                    <option value="message">Message</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 form-group">
+                                <span><strong>Parameter</strong></span>
+                                <input class="form-control" type="text" name="param" id="param">
+                            </div>
+                            <div class="col-md-2 col-xs-12 form-group submit">
+                                <input type="submit" value="Search" class="btn btn-md btn-primary btn-block submitBtn">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

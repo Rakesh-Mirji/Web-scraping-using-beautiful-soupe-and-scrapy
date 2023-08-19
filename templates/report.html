@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}Catch report{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12 col-head"style='padding:50px'>
+        <span class="h1 scrape ">Your Search Results are</span>
+        <div class="row">
+            {% if report %}
+            {% set count_1 = 0 if report[-1].word.split('###')==[''] else report[-1].word.split('###')|length %}
+            {% set count_2 = 0 if report[-2].word.split('###')==[''] else report[-2].word.split('###')|length %}
+            <div class="col-xs-12 col-data table-overflow">
+                <table class="table" id="report">
+                    <tr><th>category</th> <th>Exhibit A</th><th>Exhibit B</th></tr>
+                    <tr><th>website</th> <td class="first">{{''.join(report[-1].website.split('###')) }}</td> <td class="sec">{{''.join(report[-2].website.split('###')) }}</td> </tr>
+                    <tr><th>words</th> <td class="first">{{', '.join(report[-1].word.split('###')) if ', '.join(report[-1].word.split('###'))!='' else 'No-Harmful-Words'  }}</td> <td class="sec">{{', '.join(report[-2].word.split('###')) if ', '.join(report[-2].word.split('###'))!='' else 'No-Harmful-Words' }} </td> </tr>
+                    <tr><th>count</th> <td class="first">{{count_1}}</td> <td class="sec">{{count_2}}</td> </tr>
+                </table>
+            </div>
+
+            
+            <div style='padding:2rem;font-size: 2rem;'>
+                {% endif %}
+                {%if count_1 > count_2 %}
+                <div><h3>"<i class="first">{{''.join(report[-1].website.split('###'))}}</i>" has more harmfull words than "<i class="sec">{{''.join(report[-2].website.split('###'))}}</i>"</h3></div>
+                <script type=text/javascript> $(".first").css("color", "red")  </script>
+
+
+                {%elif count_1 < count_2 %}
+                <div><h3>"<i class="sec">{{''.join(report[-2].website.split('###'))}}</i>" has more harmfull words than "<i class="first">{{''.join(report[-1].website.split('###'))}}</i>"</h3></div>
+                <script type=text/javascript> $(".sec").css("color", "red")  </script>
+
+                {% elif  ','.join(report[-1].word.split('###')) == ','.join(report[-2].word.split('###')) == '' %}
+                <div><h3>"<i class="first">{{''.join(report[-2].website.split('###'))}} </i>" & "<i class="sec"> {{''.join(report[-1].website.split('###'))}}</i>" contain no harmful words </h3></div>
+                <script type=text/javascript> $(".first").css("color", "green"),$(".sec").css("color", "green")  </script>
+
+                {% elif count_1 == count_2 %}
+                <div><h3>"<i class="first">{{''.join(report[-2].website.split('###'))}}</i>" & "<i class="sec">{{''.join(report[-1].website.split('###'))}} </i>" both have equal word count </h3></div>
+                <script type=text/javascript> $(".first").css("color", "red"),$(".sec").css("color", "red")  </script>
+            </div>
+            
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

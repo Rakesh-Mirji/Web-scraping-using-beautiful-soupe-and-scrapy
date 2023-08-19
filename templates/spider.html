@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Scraping website...{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 col-head">
+        <span class="h1">Please wait while the spider scrapes the target website...</span>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+ setTimeout(function() {
+ $('#db')[0].click();
+ }, 5000);
+</script>
+{% endblock %}

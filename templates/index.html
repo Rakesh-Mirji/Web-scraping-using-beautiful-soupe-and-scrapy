@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block title %}Spider{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-9 col-xs-12 col-head">
+        <span class="h1 scrape">Scrape Target Website</span>
+        <div class="row">
+            <div class="col-xs-12 col-data">
+                <form id="spiderform" method="POST">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12 form-group col-req">
+                            <label for="site" class="scrape">Please enter webites you wish to scrape<spam style="color:red">*<spam/></label>
+                            <input type="url" name="url_1" class="form-control" placeholder="Enter URL for First Site" required>
+                            <input type="url" name="url_2" class="form-control" placeholder="Enter URL for Second Site" required>
+                        </div>
+                        <div class="col-md-2 col-xs-12 form-group submit">
+                            <input id="btn" type="submit" class="form-control" value="Submit" class="btn btn-md btn-primary btn-block submitBtn" onclick="load()" >
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loading"></div>
+<script type=text/javascript>function load(){$("#loading").show()}</script>
+<button id="history">history</button>
+<!-- <script type=text/javascript> $("#history").click(function(){ $('#history').hide(),$('.resultTable').show() }) </script>  -->
+<script>
+      $("#history").click(function(){
+        $(".resultTable").toggleClass("show");
+      });
+</script>
+{% if data %}
+    <div class="resultTable">
+        <div class="row">
+            <div class="col-xs-12 col-head">
+                <span class="h1 scrape">view some of your previous searches</span>
+                <div class="row">
+                    <div class="col-xs-12 col-data table-overflow">
+                        <table class="table" id="report">
+                            {% if query %}
+                            <th>URL</th><th>Word</th><th>Message</th><th>Count</th>
+                            {% for i in range( query|length ,0,-1) %}
+                            <tr>
+                                <td>{{query[i-1].website}}</td><td>{{query[i-1].word}}</td><td>{% for m in query[i-1].message.split("###") %} <p style='text-align: left;'><spam style="color:red">>></spam> {{ m }}</p> {% endfor %}</td><td>{{query[i-1].message.split("###")|length}}</td>
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+   
+{% endif %}
+{% endblock %}

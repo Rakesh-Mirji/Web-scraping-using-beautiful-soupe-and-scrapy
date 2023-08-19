@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Catch report{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 col-head">
+            <span class="h1">filtered Report</span>
+            <div class="row">
+                <div class="col-xs-12 col-data table-overflow">
+                    {% if query %}
+                    <table class="table" id="report">
+                        <th>URL</th><th>Word</th><th>Message</th><th>Count</th>
+                        {% for i in range( query|length ,0,-1) %}
+                        <tr>
+                            <td>{{query[i-1].website}}</td><td>{{query[i-1].word}}</td><td>{% for m in query[i-1].message.split("###") %} <p style='text-align: left;'><spam style="color:red">>></spam> {{ m }}</p> {% endfor %}</td><td>{{query[i-1].message.split("###")|length}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% else %}
+                     <h2>No such Parameters Available</h2s>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+{% endblock %}
